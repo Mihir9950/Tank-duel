@@ -2,12 +2,46 @@
   "name": "tank-duel",
   "version": "1.0.0",
   "description": "Online 2D turn-based artillery duel (Tank Stars style)",
-  "main": "server.js",
+  "main": "electron/main.js",
   "scripts": {
     "start": "node server.js",
+    "start:desktop": "electron .",
+    "pack:win": "electron-builder --win",
     "test": "node test/smoke.js"
   },
   "dependencies": {
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.mihir9950.tankduel",
+    "productName": "Tank Duel",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "public/**/*",
+      "server.js",
+      "package.json",
+      "node_modules/ws/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }
